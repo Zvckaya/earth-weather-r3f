@@ -27,17 +27,25 @@ export default function Scene() {
 
   return (
     <>
-      <color attach="background" args={["rgb(67,127,240) 100%"]} />
+      {/* <color attach="background" args={["rgb(67,127,240) 100%"]} /> */}
       <Light />
       <OrbitControls />
       <Earth position={[0, -2, 0]} />
-      {content.map((cityWeather, idx) => (
-        <Weather
-          key={cityWeather.city}
-          weather={cityWeather.weatherData.weather[0].main.toLowerCase()}
-          position={[-1 + idx * 0.5, 0, 0]}
-        />
-      ))}
+      {content.map((cityWeather, idx) => {
+        const angle = (idx / (content.length - 1)) * Math.PI;
+        const radius = 2;
+
+        const x = radius * Math.cos(angle);
+        const y = radius * Math.sin(angle);
+        return (
+          <Weather
+            key={cityWeather.city}
+            weather={cityWeather.weatherData.weather[0].main.toLowerCase()}
+            position={[x, y - 1, 0]}
+            rotationY={idx + 1}
+          />
+        );
+      })}
     </>
   );
 }

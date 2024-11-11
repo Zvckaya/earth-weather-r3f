@@ -1,6 +1,7 @@
 import { lazy, Suspense } from "react";
 import { Canvas } from "@react-three/fiber";
 import { Loader } from "@react-three/drei";
+import { motion } from "framer-motion-3d";
 
 // 로딩 중일 때 보여줄 Sphere 컴포넌트
 // function Sphere() {
@@ -21,6 +22,19 @@ const LazyScene = lazy(() => {
   });
 });
 
+function FrameModel(props) {
+  return (
+    <motion.mesh
+      onClick={() => console.log("클릭")}
+      initial={{ x: 0, y: 0, z: 0 }}
+      animate={{ rotateX: Math.PI / 2, rotateZ: 1 }}
+      transition={{ duration: 3, repeat: Infinity }}
+    >
+      <cylinderGeometry args={[1, 1, 0.5, 8]} />
+      <meshNormalMaterial />
+    </motion.mesh>
+  );
+}
 export function Home() {
   return (
     <>

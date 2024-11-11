@@ -1,9 +1,10 @@
 import { useFrame, useLoader } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import { GLTFLoader } from "three/examples/jsm/loaders/GLTFLoader";
+import { motion } from "framer-motion-3d";
 
 export function Weather(props) {
-  const { position, weather } = props;
+  const { position, weather, rotationY } = props;
   const glb = useLoader(GLTFLoader, "/models/weather.glb");
 
   const ref = useRef(null);
@@ -25,8 +26,13 @@ export function Weather(props) {
   });
 
   return (
-    <mesh position={position} ref={ref}>
+    <motion.mesh
+      whileHover={{ scale: 1.6, transition: 0.5 }}
+      position={position}
+      rotation-y={rotationY}
+      ref={ref}
+    >
       <primitive object={weatherModel} />
-    </mesh>
+    </motion.mesh>
   );
 }
