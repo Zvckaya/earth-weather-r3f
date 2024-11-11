@@ -17,7 +17,7 @@ const LazyScene = lazy(() => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(import("../components/Scene"));
-    }, 5000);
+    }, 1000);
   });
 });
 
@@ -25,7 +25,7 @@ export function Home() {
   return (
     <>
       <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-        <Suspense fallback={null}>
+        <Suspense>
           <LazyScene />
         </Suspense>
       </Canvas>
